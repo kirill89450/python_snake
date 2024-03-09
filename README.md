@@ -1,4 +1,4 @@
-![Видео проекта](https://i.imgur.com/WlopXpd.gif)
+![Видео проекта](https://i.imgur.com/3x2SrL6.gif)
 
 
 
