@@ -1,4 +1,4 @@
-#Python Snake
+# Python Snake
 
 ![Видео проекта](https://i.imgur.com/3x2SrL6.gif)
 
