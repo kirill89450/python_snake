@@ -1,4 +1,6 @@
-[![Видео проекта](video_thumbnail.png)](https://i.imgur.com/XcKjvOl.mp4)
+![Видео проекта](https://i.imgur.com/XcKjvOl.gif)
+
+
 
 
 
