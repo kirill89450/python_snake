@@ -1,11 +1,13 @@
+# snake.py
+
 import pygame
-from config import Config
+import config
 
 class Snake:
     def __init__(self):
-        self.snake_list = [[Config.SCREEN_WIDTH / 2, Config.SCREEN_HEIGHT / 2]]
+        self.snake_list = [[config.SCREEN_WIDTH / 2, config.SCREEN_HEIGHT / 2]]
         self.length_of_snake = 1
-        self.block_size = Config.BLOCK_SIZE
+        self.block_size = config.BLOCK_SIZE
         self.direction = "RIGHT"
 
     def move(self):
@@ -38,23 +40,14 @@ class Snake:
     def draw(self, display):
         for i, segment in enumerate(self.snake_list):
             x, y = segment[0], segment[1]
-            pygame.draw.rect(display, Config.GREEN, [x, y, self.block_size, self.block_size])
+            pygame.draw.rect(display, config.GREEN, [x, y, self.block_size, self.block_size])
 
-            # Добавляем глаза и язык к голове змеи
-            if i == len(self.snake_list) - 1:
-                if self.direction == "UP":
-                    pygame.draw.circle(display, Config.BLACK, (x + self.block_size // 4, y + self.block_size // 4), self.block_size // 8)
-                    pygame.draw.circle(display, Config.BLACK, (x + 3 * self.block_size // 4, y + self.block_size // 4), self.block_size // 8)
-                    pygame.draw.line(display, Config.RED, (x + self.block_size // 2, y - self.block_size // 2), (x + self.block_size // 2, y), 2)
-                elif self.direction == "DOWN":
-                    pygame.draw.circle(display, Config.BLACK, (x + self.block_size // 4, y + 3 * self.block_size // 4), self.block_size // 8)
-                    pygame.draw.circle(display, Config.BLACK, (x + 3 * self.block_size // 4, y + 3 * self.block_size // 4), self.block_size // 8)
-                    pygame.draw.line(display, Config.RED, (x + self.block_size // 2, y + self.block_size), (x + self.block_size // 2, y + 3 * self.block_size // 2), 2)
-                elif self.direction == "LEFT":
-                    pygame.draw.circle(display, Config.BLACK, (x + self.block_size // 4, y + self.block_size // 4), self.block_size // 8)
-                    pygame.draw.circle(display, Config.BLACK, (x + self.block_size // 4, y + 3 * self.block_size // 4), self.block_size // 8)
-                    pygame.draw.line(display, Config.RED, (x - self.block_size // 2, y + self.block_size // 2), (x, y + self.block_size // 2), 2)
-                elif self.direction == "RIGHT":
-                    pygame.draw.circle(display, Config.BLACK, (x + 3 * self.block_size // 4, y + self.block_size // 4), self.block_size // 8)
-                    pygame.draw.circle(display, Config.BLACK, (x + 3 * self.block_size // 4, y + 3 * self.block_size // 4), self.block_size // 8)
-                    pygame.draw.line(display, Config.RED, (x + self.block_size, y + self.block_size // 2), (x + 3 * self.block_size // 2, y + self.block_size // 2), 2)
+    def check_collision(self, apple):
+        return self.snake_list[-1] == [apple.x, apple.y]
+
+    def check_self_collision(self):
+        return self.snake_list[-1] in self.snake_list[:-1]
+
+    def check_boundary_collision(self):
+        head_x, head_y = self.snake_list[-1]
+        return head_x >= config.SCREEN_WIDTH or head_x < 0 or head_y >= config.SCREEN_HEIGHT or head_y < 0
